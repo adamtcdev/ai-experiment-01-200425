@@ -1,101 +1,38 @@
-<!--This HTML document creates a simple animation of a tank moving towards a gate. The original code was created by Grok, and modified by Deepseek. The tank moves along a road, and the time remaining until a target date is displayed. The tank's position is updated based on the progress towards the target date, and a message is displayed when the tank reaches the gate.-->
-<!-- The code uses the p5.js library for drawing and animation. The tank is represented as a rectangle with wheels, and the gate is represented as a rectangle with a red circle. The background is set to a brown color to represent the road. The countdown timer shows the time remaining in days, hours, minutes, and seconds. When the tank reaches the gate, a message is displayed on the screen. -->
- <!-- The despcription of the code is created by Copilot. The code is a simple HTML document that uses the p5.js library to create a canvas and draw a tank moving towards a gate. The tank's position is updated based on the progress towards a target date, and a countdown timer is displayed. When the tank reaches the gate, a message is displayed. The code is well-structured and easy to understand, making it suitable for educational purposes. -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tank Moving Towards Gate</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background: #8B4513;
-        }
-        canvas {
-            display: block;
-        }
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Fall of Saigon Countdown</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<script>
-let tankX = 0;
-let gateX;
-let roadLength;
-let targetDate = new Date('2025-04-30');
-let startDate = new Date('2025-04-01');
-let totalDays = (targetDate - startDate) / (1000 * 60 * 60 * 24);
-
-function setup() {
-    createCanvas(windowWidth, windowHeight);
-    textFont('Arial');
-    gateX = windowWidth - 100;
-    roadLength = gateX - 50;
-}
-
-function draw() {
-    background(139, 69, 19);
-    
-    // Draw road
-    fill(100);
-    rect(0, height/2 - 30, width, 60);
-    
-    // Draw tank
-    fill(34, 139, 34);
-    rect(tankX, height/2 - 10, 80, 60);
-    fill(0);
-    ellipse(tankX + 20, height/2 + 50, 20, 20);
-    ellipse(tankX + 60, height/2 + 50, 20, 20);
-    rect(tankX + 30, height/2 - 30, 20, 40);
-    
-    // Draw gate
-    fill(169, 169, 169);
-    rect(gateX, height/2 - 80, 50, 160);
-    fill(255, 0, 0);
-    ellipse(gateX + 25, height/2 - 20, 30, 30);
-    
-    // Calculate progress
-    let today = new Date();
-    let daysPassed = (today - startDate) / (1000 * 60 * 60 * 24);
-    let progress = min(daysPassed / totalDays, 1);
-    
-    // Update tank position
-    tankX = lerp(50, gateX - 80, progress);
-    
-    // Calculate and display countdown
-    let timeLeft = targetDate - today;
-    if (timeLeft < 0) timeLeft = 0;
-    
-    let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-    
-    fill(255);
-    textSize(24);
-    textAlign(CENTER);
-    text(`Time remaining: ${days}d ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`, width/2, 40);
-    
-    // Check if tank reaches gate
-    if (progress >= 1) {
-        fill(255, 0, 0);
-        textSize(32);
-        text('Tank hits the gate!', width/2, height/4);
-    }
-}
-
-function pad(n) {
-    return n < 10 ? '0' + n : n;
-}
-
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
-    gateX = windowWidth - 100;
-    roadLength = gateX - 50;
-}
-</script>
+  <div id="countdown">Loading…</div>
+  <div id="dirt"></div>
+  <div id="road">
+    <div id="tank">
+      <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="25" width="100" height="25" rx="5" fill="#227722"/>
+        <ellipse cx="60" cy="20" rx="20" ry="12" fill="#1b5e1b"/>
+        <rect x="75" y="18" width="40" height="6" rx="3" fill="#333"/>
+        <circle cx="25" cy="55" r="7" fill="#111"/>
+        <circle cx="50" cy="55" r="7" fill="#111"/>
+        <circle cx="75" cy="55" r="7" fill="#111"/>
+        <circle cx="100" cy="55" r="7" fill="#111"/>
+        <g class="flag">
+          <rect x="15" y="5" width="24" height="16" fill="#d00" stroke="#000" stroke-width="1"/>
+          <polygon fill="#ff0" transform="translate(27,13) scale(0.6)"
+            points="0,-10 2.94,-3.09 9.51,-3.09 4.29,1.18 6.63,8.09 0,4 -6.63,8.09 -4.29,1.18 -9.51,-3.09 -2.94,-3.09"/>
+        </g>
+      </svg>
+    </div>
+    <div id="gate">
+      <svg id="gate-flag" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="60" height="20" fill="#d00"/>
+        <rect x="0" y="20" width="60" height="20" fill="#39f"/>
+        <polygon fill="#ff0" points="30,10 33,20 44,20 35,26 38,36 30,30 22,36 25,26 16,20 27,20"/>
+      </svg>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
