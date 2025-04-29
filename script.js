@@ -1,4 +1,4 @@
-const startDate = new Date('2025-04-29T00:00:00');
+const startDate = new Date('2025-04-29');
 const endDate   = new Date('2025-04-29T23:59:59');
 
 const tankEl = document.getElementById('tank');
