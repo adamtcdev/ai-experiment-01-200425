@@ -1,5 +1,6 @@
-const startDate = new Date(2025, 3, 29, 0, 0, 0); // April 29, 2025 at 00:00
-const endDate   = new Date(2025, 3, 30, 0, 0, 0); // April 30, 2025 at 00:00
+// Set the countdown to April 30, 2025, 00:00 in local time (browser-based)
+const startDate = new Date('2025-04-29T00:00:00'); // start of animation
+const endDate   = new Date('2025-04-30T00:00:00'); // event time
 
 const tankEl = document.getElementById('tank');
 const roadEl = document.getElementById('road');
@@ -19,11 +20,13 @@ window.addEventListener('load', () => {
   const todayX  = prog * maxX;
   const remainMs = endDate - now;
 
+  // Initial animation
   tankEl.style.transition = 'left 2s cubic-bezier(0.42,0,0.58,1)';
   requestAnimationFrame(() => {
     tankEl.style.left = todayX + 'px';
   });
 
+  // Smooth transition to finish line if time remains
   tankEl.addEventListener('transitionend', function goPhase2(e) {
     if (e.propertyName !== 'left') return;
     tankEl.removeEventListener('transitionend', goPhase2);
