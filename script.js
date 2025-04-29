@@ -1,5 +1,5 @@
-const startDate = new Date('2025-04-29');
-const endDate   = new Date('2025-04-30');
+const startDate = new Date(2025, 3, 29, 0, 0, 0); // April 29, 2025 at 00:00
+const endDate   = new Date(2025, 3, 30, 0, 0, 0); // April 30, 2025 at 00:00
 
 const tankEl = document.getElementById('tank');
 const roadEl = document.getElementById('road');
