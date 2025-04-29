@@ -1,5 +1,5 @@
 const startDate = new Date('2025-04-01');
-const endDate   = new Date('2025-04-30T23:59:59');
+const endDate   = new Date('2025-04-29T23:59:59');
 
 const tankEl = document.getElementById('tank');
 const roadEl = document.getElementById('road');
